@@ -89,8 +89,7 @@ export const AddParcelForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    // For now, we'll just navigate back to the dashboard
+    
     navigate('/spo-dashboard');
   };
 
