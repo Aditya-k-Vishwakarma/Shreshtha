@@ -2,9 +2,10 @@ import React from 'react';
 import { Package, Truck, Users, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { StatsCard } from '../components/dashboard/StatsCard';
-import { ParcelTable } from '../components/dashboard/ParcelTable';
-import { DeliveryStaffList } from '../components/spo/DeliveryStaffList';
-import { ParcelFilter } from '../components/dashboard/ParcelFilter';
+// import { ParcelTable } from '../components/dashboard/ParcelTable';
+import {SpoParcelTable} from './SpoParcelTable'
+// import { DeliveryStaffList } from '../components/spo/DeliveryStaffList';
+// import { ParcelFilter } from '../components/dashboard/ParcelFilter';
 import { useSPODashboard } from '../hooks/useSPODashboard';
 
 export const SPODashboard: React.FC = () => {
@@ -45,21 +46,13 @@ export const SPODashboard: React.FC = () => {
         />
       </div>
 
-      <ParcelFilter onFilterChange={handleFilterChange} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="space-y-4">
+      <div className="grid ">
+        {/* <div className="space-y-4">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Pending Parcels</h2>
-          <ParcelTable
-            parcels={parcels}
-            onAccept={handleParcelAccept}
-            onReject={handleParcelReject}
-          />
-        </div>
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Delivery Staff</h2>
-          <DeliveryStaffList staff={staff} />
-        </div>
+          <SpoParcelTable/>
+        </div> */}
+        <SpoParcelTable/>
       </div>
     </div>
   );

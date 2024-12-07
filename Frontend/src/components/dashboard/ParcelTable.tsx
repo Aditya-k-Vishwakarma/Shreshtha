@@ -1,5 +1,9 @@
+
+
+
 import React from 'react';
-import { Package, CheckCircle, XCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Package } from 'lucide-react'; // Use only necessary icons
 import { Parcel } from '../../types';
 
 interface ParcelTableProps {
@@ -8,7 +12,14 @@ interface ParcelTableProps {
   onReject?: (id: string) => void;
 }
 
-export const ParcelTable: React.FC<ParcelTableProps> = ({ parcels, onAccept, onReject }) => {
+export const ParcelTable: React.FC<ParcelTableProps> = ({ parcels }) => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handlePlanClick = (parcelId: string) => {
+    // Navigate to the RouteMap page with the parcelId
+    navigate(`/plan/${parcelId}`);
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
       <div className="overflow-x-auto">
@@ -30,11 +41,9 @@ export const ParcelTable: React.FC<ParcelTableProps> = ({ parcels, onAccept, onR
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                 Status
               </th>
-              {(onAccept || onReject) && (
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Actions
-                </th>
-              )}
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -56,36 +65,24 @@ export const ParcelTable: React.FC<ParcelTableProps> = ({ parcels, onAccept, onR
                   {parcel.weight} kg
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    parcel.status === 'delivered'
-                      ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-                      : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
-                  }`}>
+                  <span
+                    className={`px-2 py-1 text-xs rounded-full ${
+                      parcel.status === 'delivered'
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+                        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
+                    }`}
+                  >
                     {parcel.status}
                   </span>
                 </td>
-                {(onAccept || onReject) && (
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    <div className="flex space-x-2">
-                      {onAccept && (
-                        <button
-                          onClick={() => onAccept(parcel.id)}
-                          className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300"
-                        >
-                          <CheckCircle className="h-5 w-5" />
-                        </button>
-                      )}
-                      {onReject && (
-                        <button
-                          onClick={() => onReject(parcel.id)}
-                          className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
-                        >
-                          <XCircle className="h-5 w-5" />
-                        </button>
-                      )}
-                    </div>
-                  </td>
-                )}
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <button
+                    onClick={() => handlePlanClick(parcel.id)} // Pass the parcel ID
+                    className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
+                  >
+                    Plan
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

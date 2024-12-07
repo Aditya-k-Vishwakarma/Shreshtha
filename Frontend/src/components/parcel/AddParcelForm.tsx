@@ -139,7 +139,7 @@ export const AddParcelForm: React.FC = () => {
         {currentStep === 1 && (
           <AddressForm
             title="Sender's Details"
-            data={formData.sender}
+            data={formData.  sender}
             onChange={(data) => setFormData(prev => ({ ...prev, sender: data }))}
             onLocationClick={handleSenderLocationClick}
           />

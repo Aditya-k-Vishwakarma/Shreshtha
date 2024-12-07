@@ -57,7 +57,7 @@ export const RouteAssignment: React.FC<RouteAssignmentProps> = ({ onAssign }) =>
         </div>
         <button
           type="submit"
-          className="w-full flex items-center justify-center space-x-2 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors"
+          className="w-full flex  space-x-2 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors"
         >
           <Plus size={20} />
           <span>Assign Route</span>

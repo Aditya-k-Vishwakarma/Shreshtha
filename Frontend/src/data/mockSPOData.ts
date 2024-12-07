@@ -4,7 +4,7 @@ import { SPOStats } from '../types/spo';
 export const mockStaff: DeliveryStaff[] = [
   {
     id: 'DS001',
-    name: 'John Doe',
+    name: 'Rohit Choukiker',
     area: 'North Zone',
     status: 'active',
     assignedParcels: 5,
@@ -27,8 +27,8 @@ export const mockStaff: DeliveryStaff[] = [
 
 export const mockParcels: Parcel[] = [
   {
-    id: 'SPO001',
-    senderId: 'S001',
+    id: 'SP',
+    senderId: 'S33001',
     receiverId: 'R001',
     weight: 1.5,
     type: 'document',

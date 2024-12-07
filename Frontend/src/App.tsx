@@ -11,6 +11,8 @@ import { ICHDashboard } from './pages/ICHDashboard';
 import { SPODashboard } from './pages/SPODashboard';
 import { AddParcelPage } from './pages/AddParcelPage';
 import { RouteSummary } from './pages/RouteSummary';
+import {RouteMap }from './components/dashboard/RouteMap';
+
 import { useAuth } from './contexts/AuthContext';
 
 // Wrapper component to handle root route redirection
@@ -99,6 +101,9 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
+              {/* Add the new Route for RouteMap */}
+              <Route path="/plan/:parcelId" element={<RouteMap/>} />
+              
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>

@@ -14,8 +14,7 @@ export const useGeolocation = () => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
       });
 
-      // In a real application, you would use these coordinates with a geocoding service
-      // to get the actual address and PIN code
+      
       return {
         address: "Sample Address",
         pinCode: "123456",
