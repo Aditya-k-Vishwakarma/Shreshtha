@@ -7,17 +7,17 @@ const ParcelService = {
     },
 
     
-    async getParcelsByPincode(pincode) {
+    async getParcelsByPincode(pincode: string) {
         return await BackendService.get(`/parcels/${pincode}`);
     },
 
    
-    async createParcel(parcelData) {
+    async createParcel(parcelData: string) {
         return await BackendService.post("/parcels", parcelData);
     },
 
    
-    async updateParcelStatus(parcelId, status) {
+    async updateParcelStatus(parcelId: string, status: string): Promise<any> {
         return await BackendService.patch(`/parcels/${parcelId}`, { status });
     },
 };

@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, LogIn } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
-import { isValidEmail } from '../../utils/auth';
+import AuthService from '../../services/auth.service';
+
+type User = {
+  email: string;
+  name: string;
+  pincode: string;
+  address: string;
+  phone: string;
+  type: string;
+}
 
 export const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -12,36 +20,34 @@ export const LoginForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   
   const navigate = useNavigate();
-  const location = useLocation();
-  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
 
-    if (!isValidEmail(email)) {
-      setError('Invalid email domain');
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      await login(email, password);
-      const from = location.state?.from?.pathname || getDashboardPath(email);
-      navigate(from, { replace: true });
+      const payload: {data: {token: string, user: User}} = await AuthService.login(email, password);
+      localStorage.setItem('token', payload.data.token);
+      localStorage.setItem('user', JSON.stringify(payload.data.user));
+      const redirect = getDashboardPath(payload.data.user.type);
+      console.log(redirect)
+      navigate(redirect);
     } catch (err) {
+      console.log(err);
       setError('Login failed. Please check your credentials.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const getDashboardPath = (email: string): string => {
-    if (email.endsWith('.nsh')) return '/nsh-dashboard';
-    if (email.endsWith('.ich')) return '/ich-dashboard';
-    if (email.endsWith('.spo')) return '/spo-dashboard';
-    return '/';
+  const getDashboardPath = (type: string): string => {
+    console.log(type)
+    if (type.toLowerCase() === 'spo') return 'spo-dashboard';
+    if (type.toLowerCase() === 'ich') return 'ich-dashboard';
+    if (type.toLowerCase() === 'nsh') return 'nsh-dashboard';
+    if (type.toLowerCase() === 'user') return 'home';
+    return '';
   };
 
   return (

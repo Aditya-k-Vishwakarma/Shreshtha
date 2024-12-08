@@ -1,8 +1,8 @@
 import { BackendService } from "./config";
 
 const AuthService = {
-    async login(email, password) {
-        return await BackendService.post("/login", { email, password });
+    async login(email: string, password: string) {
+        return await BackendService.post("/users/login", { email, password });
     },
     async getAllUsers() {
         return await BackendService.get("/users");
