@@ -1,47 +1,51 @@
-import React, { useState } from 'react';
-import { Package, Truck, BarChart3 } from 'lucide-react';
-import { StatsCard } from '../components/dashboard/StatsCard';
-import { ParcelTable } from '../components/dashboard/ParcelTable';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
+import { Package, Truck, BarChart3 } from "lucide-react";
+import { StatsCard } from "../components/dashboard/StatsCard";
+import { ParcelTable } from "../components/dashboard/ParcelTable";
 
-import { Parcel } from '../types';
+import { Parcel } from "../types";
 
 const mockParcels: Parcel[] = [
   {
-    id: 'ICH001',
-    senderId: 'S001',
-    receiverId: 'R001',
+    id: "ICH001",
+    senderId: "S001",
+    receiverId: "R001",
     weight: 3.5,
-    type: 'express',
-    status: 'pending',
-    origin: 'Delhi',
-    destination: 'Chennai',
+    type: "express",
+    status: "pending",
+    origin: "Delhi",
+    destination: "Chennai",
   },
   // Add more mock data as needed
 ];
 
 export const ICHDashboard: React.FC = () => {
   const [parcels] = useState<Parcel[]>(mockParcels);
+  const navigate = useNavigate(); 
 
-  const handleAcceptParcel = (id: string) => {
-    console.log('Accepting parcel:', id);
-  };
+ 
 
-  const handleRejectParcel = (id: string) => {
-    console.log('Rejecting parcel:', id);
+  const handleNextPage = () => {
+    navigate("/InvertParcelTable", { state: { parcels } });
   };
-
-  const handleRouteAssign = (routeData: any) => {
-    console.log('Assigning route:', routeData);
-  };
-
-  const handleFilterChange = (filters: any) => {
-    console.log('Applying filters:', filters);
-  };
+  
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">ICH Dashboard</h1>
-      
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        ICH Dashboard
+      </h1>
+
+      <div className="flex justify-end"> 
+        <button
+          onClick={handleNextPage}
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+        >
+          Inward
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatsCard
           title="Total Parcels"
@@ -63,37 +67,15 @@ export const ICHDashboard: React.FC = () => {
         />
       </div>
 
-   
-
-      {/* <div className="grid">
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Incoming Parcels</h2>
-          <ParcelTable
-            parcels={parcels}
-            
-          />
-        </div>
-        <div className="space-y-4">
-          
-        {/* <RouteMap
-            origin={{ lat: 28.6139, lng: 77.2090 }} 
-            destination={{ lat: 13.0827, lng: 80.2707 }} 
-            waypoints={[
-              { lat: 17.3850, lng: 78.4867 },
-            ]}
-          /> */}
-        {/* </div>
-      </div> */} 
-
-<div>
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-red">Incoming Parcels</h2>
-          <ParcelTable
-            parcels={parcels}
-           
-          />
-        </div>
       
+
+      <div>
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-red">
+            Incoming Parcels
+          </h2>
+          <ParcelTable parcels={parcels} />
+        </div>
       </div>
     </div>
   );

@@ -12,8 +12,9 @@ import { SPODashboard } from './pages/SPODashboard';
 import { AddParcelPage } from './pages/AddParcelPage';
 import { RouteSummary } from './pages/RouteSummary';
 import {RouteMap }from './components/dashboard/RouteMap';
-
+import {InvertParcelTable} from "./components/dashboard/InvertParcelTable"
 import { useAuth } from './contexts/AuthContext';
+import { ParcelDetails } from './pages/ParcelDetails';
 
 // Wrapper component to handle root route redirection
 const RootRedirect: React.FC = () => {
@@ -103,6 +104,10 @@ function App() {
               />
               {/* Add the new Route for RouteMap */}
               <Route path="/plan/:parcelId" element={<RouteMap/>} />
+              {/* <Route path="/InvertParcelTable" element={<InvertParcelTable />} /> */}
+              <Route path="/InvertParcelTable" element={<InvertParcelTable />} />
+              <Route path="/parcel-details/:id" element={<ParcelDetails />} />
+
               
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
